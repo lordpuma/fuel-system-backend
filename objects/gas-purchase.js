@@ -11,9 +11,13 @@ module.exports = new GraphQLObjectType({
     name: 'GasPurchase',
     // description: 'A login token',
     fields: {
+        id: {
+            type: new GraphQLNonNull(GraphQLInt),
+            description: 'The id of the purchase.',
+        },
         liters: {
             type: new GraphQLNonNull(GraphQLInt),
-            description: 'The id of the user.',
+            // description: 'Number of liters.',
         },
         price: {
             type: new GraphQLNonNull(GraphQLInt),
