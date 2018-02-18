@@ -7,6 +7,8 @@ db.sequelize.sync({alter: true});
 const cors = require('cors');
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 const authMiddleware = async (req, res, next) => {
     const token = await db['token'].findOne({where: {token: req.headers['token']}});
     if (!!token) {
@@ -30,6 +32,6 @@ app.all('/graphql', authMiddleware, graphqlHTTP({
     })
 }));
 
-app.listen(3000, () => {
-  console.log('Go to http://localhost:3000/graphql to run queries!');
+app.listen(port, () => {
+  console.log(`Go to http://localhost:${port}/graphql to run queries!`);
 });
