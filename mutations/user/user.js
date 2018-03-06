@@ -24,7 +24,7 @@ module.exports = new GraphQLObjectType({
             description: 'Creates a new user.',
             async resolve(root, { username, password }) {
                 return await db['user'].create({
-                    username: username,
+                    username: username.toLowerCase(),
                     password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
                 });
             }

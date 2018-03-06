@@ -24,7 +24,7 @@ module.exports = new GraphQLObjectType({
             description: 'The name of the user.',
             async resolve(root, { username, password }) {
                 const user = await db['user'].findOne({where: {
-                        username: username,
+                        username: username.toLowerCase(),
                     }});
 
                 if (!user || !bcrypt.compareSync(password, user.password)) {

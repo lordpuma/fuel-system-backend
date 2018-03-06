@@ -5,6 +5,7 @@ const {
 const auth = require('./auth/auth');
 const user = require('./user/user');
 const gasPurchase = require('./gas-purchase/gas-purchase');
+const gasFillup = require('./gas-fillup/gas-fillup');
 
 module.exports = new GraphQLObjectType({
     name: 'Mutation',
@@ -26,6 +27,13 @@ module.exports = new GraphQLObjectType({
         },
         gasPurchase: {
             type: gasPurchase,
+            // description: 'The auth mutation.',
+            resolve() {
+                return gasPurchase;
+            }
+        },
+        gasFillup: {
+            type: gasFillup,
             // description: 'The auth mutation.',
             resolve() {
                 return gasPurchase;

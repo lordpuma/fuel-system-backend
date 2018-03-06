@@ -10,6 +10,7 @@ const {
 } = require('graphql');
 const user = require('./user');
 const gasPurchases = require('./gas-purchase');
+const gasFillup = require('./gas-fillup');
 
 userByMeFactory = () => {
 
@@ -62,6 +63,18 @@ module.exports = new GraphQLSchema({
                     }
                 },
                 resolve: resolver(db['gas-purchase'], {dataLoader: false})
+            },
+            gasFillup: {
+                type: new GraphQLList(gasFillup),
+                args: {
+                    limit: {
+                        type: GraphQLInt
+                    },
+                    order: {
+                        type: GraphQLString
+                    }
+                },
+                resolve: resolver(db['gas-fillup'], {dataLoader: false})
             }
         }
     }),
