@@ -3,7 +3,6 @@ const { resolver } = require('graphql-sequelize');
 const {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLList,
     GraphQLNonNull,
     GraphQLInt,
 
