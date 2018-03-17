@@ -61,8 +61,9 @@ module.exports = new GraphQLSchema({
         },
         resolve: resolver(db['gas-purchase'], {dataLoader: false})
       },
-      gasFillup: {
+      gasFillups: {
         type: new GraphQLList(gasFillup),
+        description: "Returns all gas fillups of active karts.",
         args: {
           limit: {
             type: GraphQLInt
@@ -71,7 +72,16 @@ module.exports = new GraphQLSchema({
             type: GraphQLString
           }
         },
-        resolve: resolver(db['gas-fillup'], {dataLoader: false})
+        resolve: resolver(db['gas-fillup'], {
+          dataLoader: false,
+          after: async result => {
+            const filterAsync = (array, filter) =>
+              Promise.all(array.map(entry => filter(entry)))
+              .then(bits => array.filter(() => bits.shift()));
+
+            return await filterAsync(result, async gasFillup => (await gasFillup.getKart()).active);
+          },
+        })
       },
       karts: {
         type: new GraphQLList(kart),
