@@ -5,6 +5,7 @@ const user        = require('./user/user');
 const gasPurchase = require('./gas-purchase/gas-purchase');
 const gasFillup   = require('./gas-fillup/gas-fillup');
 const kart        = require('./kart/kart');
+const kartHours   = require('./kart-hours/kart-hours');
 
 module.exports = new GraphQLObjectType({
   name: 'Mutation',
@@ -12,37 +13,38 @@ module.exports = new GraphQLObjectType({
   fields: {
     auth: {
       type: auth,
-      // description: 'The auth mutation.',
       resolve() {
         return auth;
       }
     },
     user: {
       type: user,
-      // description: 'The auth mutation.',
       resolve() {
         return user;
       }
     },
     gasPurchase: {
       type: gasPurchase,
-      // description: 'The auth mutation.',
       resolve() {
         return gasPurchase;
       }
     },
     gasFillup: {
       type: gasFillup,
-      // description: 'The auth mutation.',
       resolve() {
         return gasPurchase;
       }
     },
     kart: {
       type: kart,
-      // description: 'The auth mutation.',
       resolve() {
         return kart;
+      }
+    },
+    kartHours: {
+      type: kartHours,
+      resolve() {
+        return kartHours;
       }
     },
   }

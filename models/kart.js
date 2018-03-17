@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   kart.associate = (models) => {
     kart.GasFillups = kart.hasMany(models['gas-fillup']);
+    kart.KartHours = kart.hasMany(models['kart-hours']);
   };
   return kart;
 };
