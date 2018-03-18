@@ -3,7 +3,6 @@ const { resolver } = require('graphql-sequelize');
 const {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLList,
     GraphQLNonNull,
     GraphQLInt,
 
@@ -21,10 +20,6 @@ const roleType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'The name of the role.',
         },
-        // users: {
-        //     type: new GraphQLList(user),
-        //     resolve: resolver(db['role'].Users, {dataLoader: false})
-        // }
     }
 });
 

@@ -1,18 +1,8 @@
-const bcrypt = require("bcrypt");
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const db = require("./models/index");
 
 db.sequelize.sync({alter: true});
-
-db.user.findAndCountAll().then(result => {
-   if (result.count === 0) {
-       db.user.create({
-           username: 'admin',
-           password: bcrypt.hashSync('pass', bcrypt.genSaltSync(10)),
-       });
-   }
-});
 
 const cors = require('cors');
 const app = express();
@@ -22,8 +12,7 @@ const port = process.env.PORT || 3000;
 const authMiddleware = async (req, res, next) => {
     const token = await db['token'].findOne({where: {token: req.headers['token']}});
     if (!!token) {
-        const user = await token.getUser();
-        req.user = user;
+      req.user = await token.getUser();
     }
     next();
 };
