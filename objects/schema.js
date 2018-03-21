@@ -12,6 +12,7 @@ const user         = require('./user');
 const gasPurchases = require('./gas-purchase');
 const gasFillup    = require('./gas-fillup');
 const kart         = require('./kart');
+const premise      = require('./premise');
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -97,6 +98,18 @@ module.exports = new GraphQLSchema({
           }
         },
         resolve: resolver(db['kart'], {dataLoader: false})
+      },
+      premises: {
+        type: new GraphQLList(premise),
+        args: {
+          limit: {
+            type: GraphQLInt
+          },
+          order: {
+            type: GraphQLString
+          }
+        },
+        resolve: resolver(db['premise'], {dataLoader: false})
       },
     }
   }),

@@ -2,7 +2,6 @@ const {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLInt,
-  GraphQLBoolean,
   GraphQLInputObjectType,
   GraphQLList,
 } = require('graphql');
@@ -11,8 +10,8 @@ const db = require('../../models/index');
 const KartHoursInput = new GraphQLInputObjectType({
   name: 'KartHoursInput',
   fields: {
-    kartId: { type: new GraphQLNonNull(GraphQLInt) },
-    hours: { type: new GraphQLNonNull(GraphQLInt) },
+    kartId: {type: new GraphQLNonNull(GraphQLInt)},
+    hours: {type: new GraphQLNonNull(GraphQLInt)},
   }
 });
 
@@ -26,9 +25,9 @@ module.exports = new GraphQLObjectType({
         },
       },
       type: GraphQLList(require('../../objects/kart-hours')),
-      async resolve(root, { kartHours }) {
+      async resolve(root, {kartHours}) {
         const promises = [];
-        kartHours.forEach(({ kartId, hours }) => {
+        kartHours.forEach(({kartId, hours}) => {
           promises.push(new Promise(async (res, rej) => {
             const kart = await db['kart'].findById(kartId);
             if (!kart) {
@@ -43,31 +42,14 @@ module.exports = new GraphQLObjectType({
             });
 
             if (kartHoursToday) {
-              res(await kartHoursToday.update({ hours }));
+              res(await kartHoursToday.update({hours}));
             } else {
-              res(await db['kart-hours'].create({ kartId, hours, date: new Date() }));
+              res(await db['kart-hours'].create({kartId, hours, date: new Date()}));
             }
           }));
         });
         return Promise.all(promises);
       },
-    },
-    delete: {
-      args: {
-        id: {
-          type: GraphQLNonNull(GraphQLInt),
-        }
-      },
-      type: GraphQLBoolean,
-      async resolve(root, { id }) {
-        const kart = await db['kart'].findById(id);
-        if (!kart) {
-          return false;
-        }
-
-        await kart.destroy();
-        return true;
-      }
     },
   }
 });

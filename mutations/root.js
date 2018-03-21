@@ -6,6 +6,8 @@ const gasPurchase = require('./gas-purchase/gas-purchase');
 const gasFillup   = require('./gas-fillup/gas-fillup');
 const kart        = require('./kart/kart');
 const kartHours   = require('./kart-hours/kart-hours');
+const premise     = require('./premise/premise');
+const tickets     = require('./tickets/tickets');
 
 module.exports = new GraphQLObjectType({
   name: 'Mutation',
@@ -45,6 +47,18 @@ module.exports = new GraphQLObjectType({
       type: kartHours,
       resolve() {
         return kartHours;
+      }
+    },
+    premise: {
+      type: premise,
+      resolve() {
+        return premise;
+      }
+    },
+    tickets: {
+      type: tickets,
+      resolve() {
+        return tickets;
       }
     },
   }
