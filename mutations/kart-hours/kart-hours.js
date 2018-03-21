@@ -38,15 +38,13 @@ module.exports = new GraphQLObjectType({
             const kartHoursToday = await db['kart-hours'].findOne({
               where: {
                 kartId,
-                date: new Date(), // TODO
+                date: new Date(),
               }
             });
 
             if (kartHoursToday) {
-              console.log('karts today exist', hours);
               res(await kartHoursToday.update({ hours }));
             } else {
-              console.log('create new kart hours for today', kartId, hours);
               res(await db['kart-hours'].create({ kartId, hours, date: new Date() }));
             }
           }));
