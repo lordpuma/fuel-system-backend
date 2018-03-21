@@ -79,7 +79,10 @@ module.exports = new GraphQLSchema({
               Promise.all(array.map(entry => filter(entry)))
               .then(bits => array.filter(() => bits.shift()));
 
-            return await filterAsync(result, async gasFillup => (await gasFillup.getKart()).active);
+            return await filterAsync(result, async gasFillup => {
+              const kart = (await gasFillup.getKart());
+              return !!kart ? kart.active: false
+            });
           },
         })
       },
