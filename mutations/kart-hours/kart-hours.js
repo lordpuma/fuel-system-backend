@@ -6,6 +6,7 @@ const {
   GraphQLList,
 } = require('graphql');
 const db = require('../../models/index');
+const getUserFromContext = require("../../utils").getUserFromContext;
 
 const KartHoursInput = new GraphQLInputObjectType({
   name: 'KartHoursInput',
@@ -25,7 +26,7 @@ module.exports = new GraphQLObjectType({
         },
       },
       type: GraphQLList(require('../../objects/kart-hour-count')),
-      async resolve(root, {kartHours}) {
+      async resolve(root, {kartHours}, context) {
         const promises = [];
         kartHours.forEach(({kartId, hours}) => {
           promises.push(new Promise(async (res, rej) => {
@@ -44,7 +45,13 @@ module.exports = new GraphQLObjectType({
             if (kartHoursToday) {
               res(await kartHoursToday.update({hours}));
             } else {
-              res(await db['kart-hours'].create({kartId, hours, date: new Date()}));
+              const user = await getUserFromContext(context);
+              res(await db['kart-hours'].create({
+                kartId,
+                hours,
+                date: new Date(),
+                createdBy: user.id,
+              }));
             }
           }));
         });

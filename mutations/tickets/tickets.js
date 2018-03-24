@@ -4,6 +4,7 @@ const {
   GraphQLInt,
 } = require('graphql');
 const db = require('../../models/index');
+const getUserFromContext = require("../../utils").getUserFromContext;
 
 module.exports = new GraphQLObjectType({
   name: 'TicketsMutation',
@@ -18,7 +19,7 @@ module.exports = new GraphQLObjectType({
         },
       },
       type: require('../../objects/ticket-count'),
-      async resolve(root, {count, premiseId}) {
+      async resolve(root, {count, premiseId}, context) {
         const premise = await db['premise'].findById(premiseId);
         if (!premise) {
           return new Error(`Premise ID ${premiseId} does not exist.`);
@@ -34,7 +35,13 @@ module.exports = new GraphQLObjectType({
         if (ticketsToday) {
           return await ticketsToday.update({count});
         } else {
-          return await db['tickets'].create({premiseId, count, date: new Date()});
+          const user = await getUserFromContext(context);
+          return await db['tickets'].create({
+            premiseId,
+            count,
+            date: new Date(),
+            createdBy: user.id,
+          });
         }
       },
     },

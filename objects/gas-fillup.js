@@ -25,6 +25,10 @@ module.exports = new GraphQLObjectType({
     },
     date: {
       type: new GraphQLNonNull(GraphQLString),
-    }
+    },
+    createdBy: {
+      type: require('../objects/user'),
+      resolve: resolver(db['gas-fillup'].CreatedBy, { dataLoader: false })
+    },
   }
 });

@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   gasFillup.associate = (models) => {
     gasFillup.Kart = gasFillup.belongsTo(models.kart);
+    gasFillup.CreatedBy = gasFillup.belongsTo(models['user'], {
+      sourceKey: 'createdBy',
+    });
   };
   return gasFillup;
 };

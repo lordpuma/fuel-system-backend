@@ -25,5 +25,9 @@ module.exports = new GraphQLObjectType({
       type: new GraphQLNonNull(kart),
       resolve: resolver(db['kart-hours'].Kart, { dataLoader: false })
     },
+    createdBy: {
+      type: require('../objects/user'),
+      resolve: resolver(db['kart-hours'].CreatedBy, { dataLoader: false })
+    },
   }
 });
