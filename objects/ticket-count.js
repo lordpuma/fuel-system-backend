@@ -7,23 +7,23 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const kart = require('./kart');
+const premise = require('./premise');
 
 module.exports = new GraphQLObjectType({
-  name: 'KartHours',
+  name: 'TicketCount',
   fields: {
     id: {
       type: new GraphQLNonNull(GraphQLInt),
     },
-    hours: {
+    count: {
       type: new GraphQLNonNull(GraphQLInt),
     },
     date: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    kart: {
-      type: new GraphQLNonNull(kart),
-      resolve: resolver(db['kart-hours'].Kart, { dataLoader: false })
+    premise: {
+      type: new GraphQLNonNull(premise),
+      resolve: resolver(db['tickets'].Premise, { dataLoader: false })
     },
   }
 });

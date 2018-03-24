@@ -17,7 +17,7 @@ module.exports = new GraphQLObjectType({
           type: GraphQLNonNull(GraphQLInt),
         },
       },
-      type: require('../../objects/tickets'),
+      type: require('../../objects/ticket-count'),
       async resolve(root, {count, premiseId}) {
         const premise = await db['premise'].findById(premiseId);
         if (!premise) {

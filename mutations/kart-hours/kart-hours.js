@@ -24,7 +24,7 @@ module.exports = new GraphQLObjectType({
           type: GraphQLList(KartHoursInput),
         },
       },
-      type: GraphQLList(require('../../objects/kart-hours')),
+      type: GraphQLList(require('../../objects/kart-hour-count')),
       async resolve(root, {kartHours}) {
         const promises = [];
         kartHours.forEach(({kartId, hours}) => {
