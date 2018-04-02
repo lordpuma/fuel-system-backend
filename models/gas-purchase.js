@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     liters: DataTypes.INTEGER,
     date: DataTypes.DATE,
   });
-  gasPurchase.associate = (models) => {
+  gasPurchase.associate = models => {
     gasPurchase.CreatedBy = gasPurchase.belongsTo(models['user'], {
       sourceKey: 'createdBy',
     });

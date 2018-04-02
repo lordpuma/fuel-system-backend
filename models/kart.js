@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  kart.associate = (models) => {
+  kart.associate = models => {
     kart.GasFillups = kart.hasMany(models['gas-fillup']);
     kart.KartHours = kart.hasMany(models['kart-hours']);
   };

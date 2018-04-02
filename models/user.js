@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
   });
-  user.associate = (models) => {
+  user.associate = models => {
     user.Tokens = user.hasMany(models.token);
     user.CreatedKartHours = user.hasMany(models['kart-hours'], {
       foreignKey: 'createdBy',
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     user.CreatedTickets = user.hasMany(models['tickets'], {
       foreignKey: 'createdBy',
     });
-    user.Roles = user.belongsToMany(models.role, {through: 'UserRoles'});
+    user.Roles = user.belongsToMany(models.role, { through: 'UserRoles' });
   };
   return user;
 };

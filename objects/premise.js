@@ -16,5 +16,5 @@ module.exports = new GraphQLObjectType({
     name: {
       type: new GraphQLNonNull(GraphQLString),
     },
-  }
+  },
 });

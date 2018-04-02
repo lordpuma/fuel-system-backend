@@ -20,7 +20,7 @@ module.exports = new GraphQLObjectType({
         },
         password: {
           type: GraphQLNonNull(GraphQLString),
-        }
+        },
       },
       type: require('../../objects/user'),
       description: 'Creates a new user.',
@@ -29,13 +29,13 @@ module.exports = new GraphQLObjectType({
           username: username.toLowerCase(),
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
         });
-      }
+      },
     },
     delete: {
       args: {
         id: {
           type: GraphQLNonNull(GraphQLInt),
-        }
+        },
       },
       type: GraphQLBoolean,
       async resolve(root, { id }) {
@@ -46,7 +46,7 @@ module.exports = new GraphQLObjectType({
 
         await user.destroy();
         return true;
-      }
+      },
     },
     logToken: {
       type: GraphQLString,
@@ -54,7 +54,7 @@ module.exports = new GraphQLObjectType({
       async resolve(root, { username, password }, req) {
         console.log(await adminGuard(req));
         return 'test';
-      }
+      },
     },
-  }
+  },
 });

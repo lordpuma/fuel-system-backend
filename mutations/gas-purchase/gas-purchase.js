@@ -1,10 +1,6 @@
-const {
-  GraphQLObjectType,
-  GraphQLNonNull,
-  GraphQLInt,
-} = require('graphql');
-const db = require("../../models/index");
-const getUserFromContext = require("../../utils").getUserFromContext;
+const { GraphQLObjectType, GraphQLNonNull, GraphQLInt } = require('graphql');
+const db = require('../../models/index');
+const getUserFromContext = require('../../utils').getUserFromContext;
 
 module.exports = new GraphQLObjectType({
   name: 'GasPurchaseMutation',
@@ -21,7 +17,7 @@ module.exports = new GraphQLObjectType({
       },
       type: require('../../objects/gas-purchase'),
       description: 'Creates a new gas-purchase.',
-      async resolve(root, {price, liters}, context) {
+      async resolve(root, { price, liters }, context) {
         const user = await getUserFromContext(context);
         return await db['gas-purchase'].create({
           price: price,
@@ -31,5 +27,5 @@ module.exports = new GraphQLObjectType({
         });
       },
     },
-  }
+  },
 });

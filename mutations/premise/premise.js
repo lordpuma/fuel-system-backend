@@ -19,7 +19,7 @@ module.exports = new GraphQLObjectType({
       type: require('../../objects/premise'),
       async resolve(root, { name }) {
         return await db['premise'].create({
-          name
+          name,
         });
       },
     },
@@ -27,7 +27,7 @@ module.exports = new GraphQLObjectType({
       args: {
         id: {
           type: GraphQLNonNull(GraphQLInt),
-        }
+        },
       },
       type: GraphQLBoolean,
       async resolve(root, { id }) {
@@ -38,7 +38,7 @@ module.exports = new GraphQLObjectType({
 
         await premise.destroy();
         return true;
-      }
+      },
     },
-  }
+  },
 });

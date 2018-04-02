@@ -1,5 +1,5 @@
 const { resolver } = require('graphql-sequelize');
-const db = require("../models");
+const db = require('../models');
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -21,14 +21,14 @@ module.exports = new GraphQLObjectType({
     },
     kart: {
       type: new GraphQLNonNull(kart),
-      resolve: resolver(db['gas-fillup'].Kart, {dataLoader: false})
+      resolve: resolver(db['gas-fillup'].Kart, { dataLoader: false }),
     },
     date: {
       type: new GraphQLNonNull(GraphQLString),
     },
     createdBy: {
       type: require('../objects/user'),
-      resolve: resolver(db['gas-fillup'].CreatedBy, { dataLoader: false })
+      resolve: resolver(db['gas-fillup'].CreatedBy, { dataLoader: false }),
     },
-  }
+  },
 });

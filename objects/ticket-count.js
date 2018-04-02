@@ -23,11 +23,11 @@ module.exports = new GraphQLObjectType({
     },
     premise: {
       type: new GraphQLNonNull(premise),
-      resolve: resolver(db['tickets'].Premise, { dataLoader: false })
+      resolve: resolver(db['tickets'].Premise, { dataLoader: false }),
     },
     createdBy: {
       type: require('../objects/user'),
-      resolve: resolver(db['tickets'].CreatedBy, { dataLoader: false })
+      resolve: resolver(db['tickets'].CreatedBy, { dataLoader: false }),
     },
-  }
+  },
 });

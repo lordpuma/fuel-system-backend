@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  tickets.associate = (models) => {
+  tickets.associate = models => {
     tickets.Premise = tickets.belongsTo(models['premise']);
     tickets.CreatedBy = tickets.belongsTo(models['user'], {
       sourceKey: 'createdBy',

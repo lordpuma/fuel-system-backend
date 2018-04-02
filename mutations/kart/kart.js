@@ -20,7 +20,7 @@ module.exports = new GraphQLObjectType({
       description: 'Creates a new kart.',
       async resolve(root, { number }) {
         return await db['kart'].create({
-          number
+          number,
         });
       },
     },
@@ -28,7 +28,7 @@ module.exports = new GraphQLObjectType({
       args: {
         id: {
           type: GraphQLNonNull(GraphQLInt),
-        }
+        },
       },
       type: GraphQLBoolean,
       async resolve(root, { id }) {
@@ -39,7 +39,7 @@ module.exports = new GraphQLObjectType({
 
         await kart.destroy();
         return true;
-      }
+      },
     },
-  }
+  },
 });

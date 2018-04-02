@@ -1,11 +1,10 @@
-const {resolver} = require('graphql-sequelize');
+const { resolver } = require('graphql-sequelize');
 const db = require('../models');
 const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
   GraphQLInt,
-
 } = require('graphql');
 
 module.exports = new GraphQLObjectType({
@@ -26,7 +25,7 @@ module.exports = new GraphQLObjectType({
     },
     createdBy: {
       type: require('../objects/user'),
-      resolve: resolver(db['gas-purchase'].CreatedBy, { dataLoader: false })
+      resolve: resolver(db['gas-purchase'].CreatedBy, { dataLoader: false }),
     },
   }),
 });

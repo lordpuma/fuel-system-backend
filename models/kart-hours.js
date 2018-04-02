@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  kartHour.associate = (models) => {
+  kartHour.associate = models => {
     kartHour.Kart = kartHour.belongsTo(models['kart']);
     kartHour.CreatedBy = kartHour.belongsTo(models['user'], {
       sourceKey: 'createdBy',
