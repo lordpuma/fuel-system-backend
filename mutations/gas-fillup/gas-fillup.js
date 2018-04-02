@@ -23,11 +23,12 @@ module.exports = new GraphQLObjectType({
           throw new Error('Kart does not exist');
         }
         const user = await getUserFromContext(context);
+        const userId = (user && user.id) || null;
         const gasFillup = await db['gas-fillup'].create({
           liters,
           kart,
           date: new Date(),
-          createdBy: user.id,
+          createdBy: userId,
         });
         await gasFillup.setKart(kart);
 

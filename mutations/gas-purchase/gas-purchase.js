@@ -19,11 +19,12 @@ module.exports = new GraphQLObjectType({
       description: 'Creates a new gas-purchase.',
       async resolve(root, { price, liters }, context) {
         const user = await getUserFromContext(context);
+        const userId = (user && user.id) || null;
         return await db['gas-purchase'].create({
           price: price,
           liters: liters,
           date: new Date(),
-          createdBy: user.id,
+          createdBy: userId,
         });
       },
     },

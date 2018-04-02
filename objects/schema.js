@@ -6,12 +6,14 @@ const {
   GraphQLString,
   GraphQLList,
   GraphQLInt,
+  GraphQLNonNull,
 } = require('graphql');
 const user = require('./user');
 const gasPurchases = require('./gas-purchase');
 const gasFillup = require('./gas-fillup');
 const kart = require('./kart');
 const premise = require('./premise');
+const electricity = require('./electricity');
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -112,6 +114,37 @@ module.exports = new GraphQLSchema({
           },
         },
         resolve: resolver(db['premise'], { dataLoader: false }),
+      },
+      electricities: {
+        type: new GraphQLList(electricity),
+        args: {
+          limit: {
+            type: GraphQLInt,
+          },
+          order: {
+            type: GraphQLString,
+          },
+        },
+        resolve: resolver(db['electricity'], {
+          dataLoader: false,
+        }),
+      },
+      electricityDate: {
+        type: electricity,
+        args: {
+          date: {
+            type: new GraphQLNonNull(GraphQLString),
+          },
+        },
+        resolve: resolver(db['electricity'], {
+          dataLoader: false,
+          before: (findOptions, args) => ({
+            ...findOptions,
+            where: {
+              date: args.date,
+            },
+          }),
+        }),
       },
     },
   }),

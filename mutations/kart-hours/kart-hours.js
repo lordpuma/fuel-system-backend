@@ -42,17 +42,23 @@ module.exports = new GraphQLObjectType({
                   date: new Date(),
                 },
               });
+              const user = await getUserFromContext(context);
+              const userId = (user && user.id) || null;
 
               if (kartHoursToday) {
-                res(await kartHoursToday.update({ hours }));
+                res(
+                  await kartHoursToday.update({
+                    hours,
+                    createdBy: userId,
+                  }),
+                );
               } else {
-                const user = await getUserFromContext(context);
                 res(
                   await db['kart-hours'].create({
                     kartId,
                     hours,
                     date: new Date(),
-                    createdBy: user.id,
+                    createdBy: userId,
                   }),
                 );
               }

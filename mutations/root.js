@@ -8,6 +8,7 @@ const kart = require('./kart/kart');
 const kartHours = require('./kart-hours/kart-hours');
 const premise = require('./premise/premise');
 const tickets = require('./tickets/tickets');
+const electricity = require('./electricity/electricity');
 
 module.exports = new GraphQLObjectType({
   name: 'Mutation',
@@ -59,6 +60,12 @@ module.exports = new GraphQLObjectType({
       type: tickets,
       resolve() {
         return tickets;
+      },
+    },
+    electricity: {
+      type: electricity,
+      resolve() {
+        return electricity;
       },
     },
   },

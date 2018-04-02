@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     user.CreatedTickets = user.hasMany(models['tickets'], {
       foreignKey: 'createdBy',
     });
+    user.CreatedElectricities = user.hasMany(models['electricity'], {
+      foreignKey: 'createdBy',
+    });
     user.Roles = user.belongsToMany(models.role, { through: 'UserRoles' });
   };
   return user;

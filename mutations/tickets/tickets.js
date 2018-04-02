@@ -27,16 +27,20 @@ module.exports = new GraphQLObjectType({
             date: new Date(),
           },
         });
+        const user = await getUserFromContext(context);
+        const userId = (user && user.id) || null;
 
         if (ticketsToday) {
-          return await ticketsToday.update({ count });
+          return await ticketsToday.update({
+            count,
+            createdBy: userId,
+          });
         } else {
-          const user = await getUserFromContext(context);
           return await db['tickets'].create({
             premiseId,
             count,
             date: new Date(),
-            createdBy: user.id,
+            createdBy: userId,
           });
         }
       },
